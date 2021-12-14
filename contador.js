@@ -1,5 +1,12 @@
-const numeros = [1,2,3,4,5,6,7,8]
-
+const test = {
+    prop: 42,
+    func: function() {
+        let prop = 40;
+      return this.prop;
+    },
+  };
+  
+  console.log(test.func());
 // for (let i = 0; i < numeros.length; i++) {
 //     console.log(numeros[i]);
 // }
@@ -8,6 +15,6 @@ const numeros = [1,2,3,4,5,6,7,8]
 //     console.log(num);
 // }
 
-numeros.forEach(function(numero){
-    console.log(numero);
-})
+// numeros.forEach(function(numero){
+//     console.log(numero);
+// })
