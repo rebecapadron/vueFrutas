@@ -1,0 +1,37 @@
+<html lang="en">
+<head>
+    <title>Listado</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+</head>
+<body>
+        <input type="button" onclick="buscar();" value="Ingresar">
+    <p>
+        <div id="contenido">
+            <span id="mensaje">Esperando usuarios</span>
+        </div>
+    </p>
+    
+    <script>
+        const API = 'https://rickandmortyapi.com/api/character';
+        async function buscar(){
+            mensaje("Procesando...");
+            let res = await axios.get(API);
+            res = res.data.results
+            for(let i = 0; i < res.length; i++){
+                let element = document.createElement("p");
+                element.innerHTML = `${res[i].name} ${res[i].species} <img src="${res[i].image}" width="50" height="50"> <input id="${res[i].id}" type="button" onclick="muestrame('${res[i].status}','${res[i].gender}');" value="+">`;
+                document.getElementById("contenido").appendChild(element);
+            }
+        }
+
+        function mensaje(msj){
+            document.getElementById("mensaje").innerHTML = msj;
+        }
+
+        function muestrame(estado, genero){
+            swal(`El personaje esta: ${estado}`, `...y es de genero: ${genero}`, estado == 'Dead' ? 'error' : 'success');
+        }
+    </script>
+</body>
+</html>
