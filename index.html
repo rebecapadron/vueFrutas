@@ -1,6 +1,6 @@
-<html lang="en">
-<head>
-    <title>Listado</title>
+<html lang="en">// tipo de idioma
+<head>//cabecera
+    <title>Listado</title> //titulo
     <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/0.24.0/axios.min.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
@@ -11,17 +11,24 @@
             <span id="mensaje">Esperando usuarios</span>
         </div>
     </p>
-    
+    <div>
+        <img src="" width="200", height="200" alt="imagen" id="imagen">
+    </div>
+    <div id="episodios"></div>
     <script>
         const API = 'https://rickandmortyapi.com/api/character';
         async function buscar(){
             mensaje("Procesando...");
             let res = await axios.get(API);
-            res = res.data.results
-            for(let i = 0; i < res.length; i++){
-                let element = document.createElement("p");
-                element.innerHTML = `${res[i].name} ${res[i].species} <img src="${res[i].image}" width="50" height="50"> <input id="${res[i].id}" type="button" onclick="muestrame('${res[i].status}','${res[i].gender}');" value="+">`;
-                document.getElementById("contenido").appendChild(element);
+            for(r of res.data.results){
+                if(r.gender == 'Female' || r.status == 'Dead')  {
+                    let element = document.createElement("li");
+                    element.innerHTML = `${r.name} ${r.species}  <input id="${r.id}" type="button" 
+                    onclick="muestrame(${JSON.parse(r)});" value="+">`;
+                    document.getElementById("contenido").appendChild(element);
+                    
+                }
+                
             }
         }
 
@@ -29,9 +36,19 @@
             document.getElementById("mensaje").innerHTML = msj;
         }
 
-        function muestrame(estado, genero){
-            swal(`El personaje esta: ${estado}`, `...y es de genero: ${genero}`, estado == 'Dead' ? 'error' : 'success');
+        function muestrame(r){
+            console.log(r,JSON.stringify(r))
+            swal(`El personaje esta: ${r.estado}`, `...y es de genero: ${r.genero}`, r.estado == 'Dead' ? 'error' : 'success');
+            document.getElementById("imagen").src = r.image
+            console.log(r.episode)
+            //r.episode.forEach(epi => {
+                // let element = document.createElement("li");
+                // element.innerHTML = `${r}`;
+                // document.getElementById("episodios").appendChild(element);
+            //});
         }
+        
+
     </script>
 </body>
 </html>
