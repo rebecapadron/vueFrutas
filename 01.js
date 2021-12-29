@@ -12,15 +12,15 @@ const app= new Vue ({
  },
  methods:{
     agregarFruta () {
-        const existe = this.frutas.filter(fruta => fruta.nombre == this.nuevaFruta)
-        if(existe.length == 0){
+        //const existe = this.frutas.filter(fruta => fruta.nombre == this.nuevaFruta)
+        //if(existe.length == 0){
          this.frutas.push({
             nombre: this.nuevaFruta, 
             cantidad: 0
          })
-        }else{
-            console.log(`Ya existe una fruta con el nombre ${this.nuevaFruta}`)
-        }
+        // }else{
+        //     console.log(`Ya existe una fruta con el nombre ${this.nuevaFruta}`)
+        // }
      }
  }
  
